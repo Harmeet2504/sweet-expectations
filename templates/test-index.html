@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Gestational diabetes predictor</title>
+  <!-- jquery, popper, bootstrap 4.4.1-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Leaflet JS & CSS -->
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
+
+  <!-- <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" -->
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+  <!-- Marker Cluster JS & CSS -->
+  <script type="text/javascript"
+    src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+  <!-- local CSS -->
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../static/css/d3Style.css"> -->
+
+   <!-- local CSS -->
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm" style="background: rgb(249, 246, 246)">
+    <a class="navbar-brand" href="/">
+      <svg class="bi bi-house-door-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
+        <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+      </svg></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/predict"> 
+          <svg class="bi bi-person-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+          </svg></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<!--  -->
+<div class="container-fluid"
+    style="margin-bottom:0; background-position: bottom;">
+    <marquee style="color:rgb(40, 79, 82)" behavior="scroll" direction="left">Gestational diabetes is currently the most common medical complications of pregnancy affecting 10-25% of pregnancies throughout the world. </marquee>
+    <!-- <h2> Promoting timely intervention</h2> -->
+  </div>
+
+<!--  -->
+<div class="container">
+    <div class="row">
+        <div class="row justify-content-md-center">  
+      <div class="col">  
+      </div>
+      <div class="col ">
+        <div class="image"><img src="../static/img/mother.png" alt="Portrait" class="description-image" height="50" width="50"></div>
+      </div>
+      <div class="col ">
+      </div>
+    
+        <!-- <div class="col col-lg-2"> -->
+        <div class="container">
+                <div class="row">
+                    <div class="col">  
+                        <h2> Promoting timely intervention</h2>
+                    </div>
+                </div>
+        </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="row justify-content-md-center">  
+                    <div class="col-md-auto">
+                  </div>
+                  </div>
+                  <div class="col ">
+                    <h3>How to use</h3>
+                    <h7>
+                          This application is built to predict gestational diabetes in expectant mothers. It is strictly to be used by physicans to monitor risk in their patients carrying single child with gestational age of less than 22 weeks.
+                            To use the app, click on the risk monitor icon in the navigation bar and fill up the questionnaire with patient's details.
+                            For accurate prediciton please enter pregestational BMI.The app outputs the risk of a user based on the values. In case of high risk category, early intervention strategies may be recommended.
+                        </h7></div>
+                          <div class="col-md-auto">  
+                        </div>
+            <!--  -->
+          
+        </div>
+        
+        
+      </div>
+    
+            </div>
+
+            
+        </div>
+       
+        </div>
+      </div>
+    </div>
+</div>
+  
+      <!-- Testing card -->
+
+  
+  <!--end of jumbotron -->
+
+  <!-- D3, plotly and chartJS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+</div>
+  
+<!-- <div class="footer">
+    <p>&copy;SafePregnancy</p></div> -->
+<!-- <div class="footer"> -->
+  <!-- <p>&copy;SafePregnancy</p> -->
+  <!-- <a class="github" href="https://github.com/Harmeet2504/Insight_Health" target="_blank">
+    <img src="../static/img/github.JPG" width="25" height="25" class="rounded" alt="GitHub"></a> -->
+</div>
+</body>
+
+    <!-- <a class="github" href="https://github.com/Harmeet2504/Insight_Health" target="_blank"> 
+      <img src="../static/img/github.JPG" width="25" height="25" class="rounded" alt="GitHub"></a>  -->
+</html>
