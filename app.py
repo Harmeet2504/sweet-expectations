@@ -39,13 +39,13 @@ def resultCRNN():
         output=np.round(prediction[0,1]*100,2)
         # print(output)
         if int(output)>=65:
-            prediction='High Risk for Gestational Diabetes'  
+            prediction='Patient is at high Risk'  
             risk=3      
         elif int(output)>=45:
-            prediction='Moderate Risk for Gestational Diabetes' 
+            prediction='Patient is at moderate Risk' 
             risk=2   
         else:
-            prediction='You are healthy'
+            prediction='Patient is healthy'
             risk=1
         print(prediction)
         return render_template('monitor.html', prediction_text='{}'.format(prediction), status="results", risk=risk)
