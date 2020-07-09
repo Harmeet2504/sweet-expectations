@@ -12,13 +12,11 @@ app = Flask(__name__)
 Best_model = pickle.load(open('model_tree.pkl', 'rb'))
 
 @app.route("/")
-# @app.route("/index")
 def index():
     """Return the homepage."""
     return render_template("test-index.html")
 
 @app.route("/directions")
-# @app.route("/index")
 def directions():
     """Return the homepage."""
     return render_template("directions.html")
@@ -34,15 +32,13 @@ def resultCRNN():
         patient_info = request.form.to_dict()
         int_features = [int(x) for x in request.form.values()]
         final_features = [np.array(int_features)]
-        # print(final_features)
         prediction = Best_model.predict_proba(final_features)
         output=np.round(prediction[0,1]*100,2)
-        # print(output)
         if int(output)>=65:
-            prediction='Patient is at high Risk'  
+            prediction='Patient is at high risk'  
             risk=3      
         elif int(output)>=45:
-            prediction='Patient is at moderate Risk' 
+            prediction='Patient is at moderate risk' 
             risk=2   
         else:
             prediction='Patient is healthy'
