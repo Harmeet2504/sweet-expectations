@@ -15,7 +15,7 @@ html {
       margin: 0;
       height: 100%;
       width: 100%;
-      background-color:rgb(254, 250, 250);
+      /* background-color:rgb(254, 250, 250); */
   }
   
   /* .jumbotron
@@ -138,7 +138,7 @@ html {
   }
 
   /* For about page */
-  .description {
+  /* .description {
     margin-top: 30px;
     margin-bottom: 60px;
     margin-left:40px;
@@ -165,7 +165,7 @@ html {
     float: left;
     width: 20%;
     height: 10%;
-  }
+  } */
   
   p{
     color: black;
@@ -174,10 +174,10 @@ html {
     text-align: justify;
   }
 
-  .description-image{
+  /* .description-image{
   
       padding: 20;
       max-width: 100%;
       height: auto;
    
-  }
+  } */

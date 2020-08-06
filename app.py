@@ -21,6 +21,11 @@ def directions():
     """Return the homepage."""
     return render_template("directions.html")
 
+@app.route("/dashboard")
+def dashboard():
+    """Return the homepage."""
+    return render_template("dashboard.html")
+
 @app.route('/predict')
 def predict():
     return render_template("monitor.html",status="predict" )
